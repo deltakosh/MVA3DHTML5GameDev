@@ -1,0 +1,6 @@
+c:\users\davrous\documents\visual studio 2013\Projects\006_FlatShading\006_FlatShading\bin\006_FlatShading.dll.config
+c:\users\davrous\documents\visual studio 2013\Projects\006_FlatShading\006_FlatShading\bin\006_FlatShading.dll
+c:\users\davrous\documents\visual studio 2013\Projects\006_FlatShading\006_FlatShading\bin\006_FlatShading.pdb
+c:\users\davrous\documents\visual studio 2013\Projects\006_FlatShading\006_FlatShading\obj\Debug\006_FlatShading.csprojResolveAssemblyReference.cache
+c:\users\davrous\documents\visual studio 2013\Projects\006_FlatShading\006_FlatShading\obj\Debug\006_FlatShading.dll
+c:\users\davrous\documents\visual studio 2013\Projects\006_FlatShading\006_FlatShading\obj\Debug\006_FlatShading.pdb

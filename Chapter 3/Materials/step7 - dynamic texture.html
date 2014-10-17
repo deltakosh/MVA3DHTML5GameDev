@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+    <!-- Babylon.js -->
+    <script src="http://www.babylonjs.com/hand.minified-1.2.js"></script>
+    <script src="http://www.babylonjs.com/babylon.js"></script>
+    <style>
+        html, body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        /// <reference path="http://www.babylonjs.com/babylon.js" />
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+
+        var scene = new BABYLON.Scene(engine);
+
+        var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 10, -20), scene);
+        camera.checkCollisions = true;
+
+        camera.setTarget(new BABYLON.Vector3.Zero());
+
+        camera.attachControl(canvas, false);
+
+        var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+
+        var ground = BABYLON.Mesh.CreateGround("ground1", 100, 100, 2, scene);
+        ground.checkCollisions = true;
+
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        // Mirrors
+        var mirrorMaterial = new BABYLON.StandardMaterial("mirrorMaterial", scene);
+        mirrorMaterial.diffuseColor = new BABYLON.Color3(0.4, 0.4, 0.4);
+        mirrorMaterial.reflectionTexture = new BABYLON.MirrorTexture("mirror", 1024, scene, true); //Create a mirror texture
+        mirrorMaterial.reflectionTexture.mirrorPlane = new BABYLON.Plane(0, -1.0, 0, 0.0);
+        mirrorMaterial.reflectionTexture.level = 0.6;//Select the level (0.0 > 1.0) of the reflection
+
+        ground.material = mirrorMaterial;
+
+        // Materials and spheres
+        var angle = 0;
+        var sphereCount = 11;
+        for (var index = 0; index < sphereCount; index++) {
+            var sphere = BABYLON.Mesh.CreateSphere("sphere" + index, 16, 2, scene);
+
+            sphere.position.y = 1;
+            sphere.position.x = 10 * Math.cos(angle);
+            sphere.position.z = 10 * Math.sin(angle);
+
+            angle -= 2 * Math.PI / sphereCount;
+
+            // Add sphere to mirror render list
+            mirrorMaterial.reflectionTexture.renderList.push(sphere);
+
+            var mat = new BABYLON.StandardMaterial("default" + index, scene);
+
+            switch (index) {
+                case 0:
+                    mat.diffuseColor = BABYLON.Color3.Red();
+                    mat.specularColor = BABYLON.Color3.Black();
+                    break;
+
+                case 1:
+                    mat.diffuseColor = BABYLON.Color3.Red();
+                    mat.specularColor = BABYLON.Color3.White();
+                    break;
+
+                case 2:
+                    mat.emissiveColor = BABYLON.Color3.Red();
+                    mat.diffuseColor = BABYLON.Color3.Black();
+                    mat.specularColor = BABYLON.Color3.Black();
+                    break;
+
+                case 3:
+                    mat.diffuseTexture = new BABYLON.Texture("wood.jpg", scene);
+                    break;
+
+                case 4:
+                    mat.diffuseTexture = new BABYLON.Texture("wood.jpg", scene);
+                    mat.diffuseTexture.uScale = 5.0;
+                    mat.diffuseTexture.vScale = 5.0;
+                    break;
+
+                case 5:
+                    mat.diffuseTexture = new BABYLON.Texture("Tree.png", scene);
+                    mat.diffuseTexture.hasAlpha = true;
+                    break;
+
+                case 6:
+                    mat.diffuseTexture = new BABYLON.Texture("Tree.png", scene);
+                    mat.emissiveColor = BABYLON.Color3.Green();
+                    mat.diffuseTexture.hasAlpha = true;
+                    mat.backFaceCulling = false;
+                    break;
+
+                case 7:
+                    mat.diffuseColor = BABYLON.Color3.Purple();
+                    mat.bumpTexture = new BABYLON.Texture("normalMap.jpg", scene);
+                    mat.bumpTexture.level = 2.0;
+                    break;
+
+                case 8:
+                    mat.diffuseTexture = new BABYLON.Texture("wood.jpg", scene);
+                    mat.reflectionTexture = new BABYLON.CubeTexture("Refcube", scene);
+                    break;
+
+                case 9:
+                    mat.wireframe = true;
+                    break;
+
+                case 10:
+                    mat.diffuseTexture = new BABYLON.VideoTexture("video", ["babylonjs.mp4"], 256, scene, false);
+                    break;
+            }
+
+            sphere.material = mat;
+        }
+
+        // Big sphere
+        var bigSphere = BABYLON.Mesh.CreateSphere("big sphere", 16, 10, scene);
+
+        bigSphere.position.y = 5;
+        mirrorMaterial.reflectionTexture.renderList.push(bigSphere);
+
+        // Create multi materials
+        var multimat = new BABYLON.MultiMaterial("multi", scene);
+        for (index = 0; index < sphereCount; index++) {
+            multimat.subMaterials.push(scene.getMaterialByName("default" + index));
+        }
+
+        bigSphere.material = multimat;
+        bigSphere.checkCollisions = true;
+
+        // Let's subdivide the sphere
+        bigSphere.subMeshes = [];
+        var verticesCount = bigSphere.getTotalVertices();
+        var indicesCount = bigSphere.getTotalIndices();
+
+        var currentIndex = 0;
+        var offset = 330; // 110 faces per sub mesh
+        for (index = 0; index < sphereCount; index++) {
+            new BABYLON.SubMesh(index, 0, verticesCount, currentIndex, offset, bigSphere);
+            currentIndex += offset;
+        }
+
+        scene.registerBeforeRender(function() {
+            var mat4 = scene.getMaterialByName("default4");
+            mat4.diffuseTexture.uOffset += 0.01;
+        });
+
+        // Add a box
+        var box = BABYLON.Mesh.CreateBox("box", 2, scene);
+        box.position.y = 10;
+        var boxMaterial = new BABYLON.StandardMaterial("box mat", scene);
+        box.material = boxMaterial;
+
+        // Dynamic texture
+        var dynamicTexture = new BABYLON.DynamicTexture("dynamic texture", 512, scene, true);
+        dynamicTexture.hasAlpha = true;
+        boxMaterial.diffuseTexture = dynamicTexture;
+        boxMaterial.backFaceCulling = false;
+
+        // Animations
+        var count = 0;
+        scene.registerBeforeRender(function () {
+            var textureContext = dynamicTexture.getContext();
+            var size = dynamicTexture.getSize();
+            var text = count.toString();
+
+            textureContext.clearRect(0, 0, size.width, size.height);
+
+            textureContext.font = "bold 120px Calibri";
+            var textSize = textureContext.measureText(text);
+            textureContext.fillStyle = "white";
+            textureContext.fillText(text, (size.width - textSize.width) / 2, (size.height - 120) / 2);
+
+            dynamicTexture.update();
+
+            count++;
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+1 - Show the minimum HTML & CSS page needed + JS references
+2 - Start with basics.js and explains what's going on
+3 - Add a scene and change the render loop to render it
+4 - Add a FreeCamera (0,0,-10), Create a Mesh via the CreatePlane function and use applyToMesh function
+5 - Replace the CreatePlane call function by BABYLON.Mesh.CreatePlane then call CreateGround(32, 32, 12), move the camera Y + 2, CreateBox of 2, position (0, 2, 0)
+6 - Add an PointLight (5, 10, -5)
+7 - Explains that to move camera, we should listen to keydown handler and handle that in the runRenderLoop. Instead of that, show camera.attachControl. 
+8 - Change diffuse color of the PointLight to Purple
+9 - Add an HemisphericLight (0,1,0)
+10 - Modify the render loop to rotate the cube
+
+            cube.rotation.y += 0.01;
+            cube.rotation.x += 0.01;
+
+11 - Add checkCollisions = true to Cube & Ground & Camera
+12 - Add applyGravity to camera
+13 - Change camera to:
+
+    var arcCamera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 1, 0.8, 10, new BABYLON.Vector3(0, 0, 0), scene);
+    
+14 - It doesn't work with touch? Add touch-action: none in the CSS section
+
+15 - Change current script used to meshesPrimitives.js

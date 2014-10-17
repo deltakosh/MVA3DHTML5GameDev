@@ -1,0 +1,6 @@
+c:\users\davrous\documents\visual studio 2013\Projects\007_GouraudShading\007_GouraudShading\bin\007_GouraudShading.dll.config
+c:\users\davrous\documents\visual studio 2013\Projects\007_GouraudShading\007_GouraudShading\bin\007_GouraudShading.dll
+c:\users\davrous\documents\visual studio 2013\Projects\007_GouraudShading\007_GouraudShading\bin\007_GouraudShading.pdb
+c:\users\davrous\documents\visual studio 2013\Projects\007_GouraudShading\007_GouraudShading\obj\Debug\007_GouraudShading.csprojResolveAssemblyReference.cache
+c:\users\davrous\documents\visual studio 2013\Projects\007_GouraudShading\007_GouraudShading\obj\Debug\007_GouraudShading.dll
+c:\users\davrous\documents\visual studio 2013\Projects\007_GouraudShading\007_GouraudShading\obj\Debug\007_GouraudShading.pdb

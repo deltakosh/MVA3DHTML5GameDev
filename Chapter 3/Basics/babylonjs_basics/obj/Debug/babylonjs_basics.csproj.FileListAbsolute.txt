@@ -1,0 +1,6 @@
+c:\users\davrous\documents\visual studio 2013\Projects\babylonjs_basics\babylonjs_basics\bin\babylonjs_basics.dll.config
+c:\users\davrous\documents\visual studio 2013\Projects\babylonjs_basics\babylonjs_basics\bin\babylonjs_basics.dll
+c:\users\davrous\documents\visual studio 2013\Projects\babylonjs_basics\babylonjs_basics\bin\babylonjs_basics.pdb
+c:\users\davrous\documents\visual studio 2013\Projects\babylonjs_basics\babylonjs_basics\obj\Debug\babylonjs_basics.csprojResolveAssemblyReference.cache
+c:\users\davrous\documents\visual studio 2013\Projects\babylonjs_basics\babylonjs_basics\obj\Debug\babylonjs_basics.dll
+c:\users\davrous\documents\visual studio 2013\Projects\babylonjs_basics\babylonjs_basics\obj\Debug\babylonjs_basics.pdb

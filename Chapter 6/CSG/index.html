@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+    <!-- Babylon.js -->
+    <script src="http://www.babylonjs.com/hand.minified-1.2.js"></script>
+    <script src="http://www.babylonjs.com/babylon.js"></script>
+    <style>
+        html, body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, false);
+
+        var scene = new BABYLON.Scene(engine);
+        var light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(0, -0.5, -1.0), scene);
+        var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 0, 0), scene);
+        camera.setPosition(new BABYLON.Vector3(10, 10, 10));
+        light.position = new BABYLON.Vector3(20, 150, 70);
+        camera.minZ = 10.0;
+
+        camera.attachControl(canvas);
+
+        scene.ambientColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+
+        // Sources
+        var sourceMat = new BABYLON.StandardMaterial("sourceMat", scene);
+        sourceMat.wireframe = true;
+        sourceMat.backFaceCulling = false;
+
+        var a = BABYLON.Mesh.CreateSphere("sphere", 16, 4, scene);
+        var b = BABYLON.Mesh.CreateBox("box", 4, scene);
+        var c = BABYLON.Mesh.CreateBox("box", 4, scene);
+
+        a.material = sourceMat;
+        b.material = sourceMat;
+        c.material = sourceMat;
+
+        a.position.y += 5;
+        b.position.y += 2.5;
+        c.position.y += 3.5;
+        c.rotation.y += Math.PI / 8.0;
+
+        // Materials
+        var mat0 = new BABYLON.StandardMaterial("mat0", scene);
+        var mat1 = new BABYLON.StandardMaterial("mat1", scene);
+
+        mat0.diffuseColor.copyFromFloats(0.8, 0.2, 0.2);
+        mat0.backFaceCulling = false;
+
+        mat1.diffuseColor.copyFromFloats(0.2, 0.8, 0.2);
+        mat1.backFaceCulling = false;
+
+        // CSGs
+        var aCSG = BABYLON.CSG.FromMesh(a);
+        var bCSG = BABYLON.CSG.FromMesh(b);
+        var cCSG = BABYLON.CSG.FromMesh(c);
+
+        var subCSG = bCSG.subtract(aCSG);
+        var newMesh = subCSG.toMesh("csg", mat0, scene);
+        newMesh.position = new BABYLON.Vector3(-10, 0, 0);
+
+        subCSG = aCSG.subtract(bCSG);
+        newMesh = subCSG.toMesh("csg2", mat0, scene);
+        newMesh.position = new BABYLON.Vector3(10, 0, 0);
+
+        subCSG = aCSG.intersect(bCSG);
+        newMesh = subCSG.toMesh("csg3", mat0, scene);
+        newMesh.position = new BABYLON.Vector3(0, 0, 10);
+
+        //// Let's create a multimaterial
+        //var multiMat = new BABYLON.MultiMaterial("multiMat", scene);
+        //multiMat.subMaterials.push(mat0, mat1);
+
+        //subCSG = bCSG.subtract(cCSG);
+        //newMesh = subCSG.toMesh("csg4", multiMat, scene, true);
+        //newMesh.position = new BABYLON.Vector3(0, 0, -10);
+
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>

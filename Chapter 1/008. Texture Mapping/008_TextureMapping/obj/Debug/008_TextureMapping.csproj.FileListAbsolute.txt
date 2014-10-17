@@ -1,0 +1,6 @@
+c:\users\davrous\documents\visual studio 2013\Projects\008_TextureMapping\008_TextureMapping\bin\008_TextureMapping.dll.config
+c:\users\davrous\documents\visual studio 2013\Projects\008_TextureMapping\008_TextureMapping\bin\008_TextureMapping.dll
+c:\users\davrous\documents\visual studio 2013\Projects\008_TextureMapping\008_TextureMapping\bin\008_TextureMapping.pdb
+c:\users\davrous\documents\visual studio 2013\Projects\008_TextureMapping\008_TextureMapping\obj\Debug\008_TextureMapping.csprojResolveAssemblyReference.cache
+c:\users\davrous\documents\visual studio 2013\Projects\008_TextureMapping\008_TextureMapping\obj\Debug\008_TextureMapping.dll
+c:\users\davrous\documents\visual studio 2013\Projects\008_TextureMapping\008_TextureMapping\obj\Debug\008_TextureMapping.pdb

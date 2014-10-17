@@ -1,0 +1,14 @@
+1 - Copy/paste the .py babylon.js addon to the right directory
+2 - Launch Blender
+3 - Create a plane and scale it
+4 - Remove the light & the cube
+5 - Add a sphere and a material to make it red like
+6 - Add a hemispheric light
+7 - Export to .babylon and display it in the sandbox
+8 - Display the sandbox options
+9 - Back to blender, add a texture to the ground, add a cube with a texture also
+10 - Export & display in the sandbox
+11 - Add Suzanne and set collisions & gravity on all objects
+12 - Export & display in the sandbox and move like inside a FPS
+13 - Add a rigibody of type box to the ground & the cube. Move up the cube and slightly rotate it
+14 - Reload the scene in the sandbox and show the physics running

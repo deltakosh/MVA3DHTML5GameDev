@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+    <!-- Babylon.js -->
+    <script src="http://www.babylonjs.com/hand.minified-1.2.js"></script>
+    <script src="http://www.babylonjs.com/babylon.js"></script>
+    <style>
+        html, body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, false);
+
+        var scene = new BABYLON.Scene(engine);
+        var camera = new BABYLON.ArcRotateCamera("Camera", 0, Math.PI / 2, 10, BABYLON.Vector3.Zero(), scene);
+        var light0 = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(21.84, 50, -28.26), scene);
+
+        camera.attachControl(canvas);
+
+        // Lens flare
+        var lensFlareSystem = new BABYLON.LensFlareSystem("lensFlareSystem", light0, scene);
+        var flare00 = new BABYLON.LensFlare(0.2, 0, new BABYLON.Color3(1, 1, 1), "lens5.png", lensFlareSystem);
+        //var flare01 = new BABYLON.LensFlare(0.5, 0.5, new BABYLON.Color3(0.5, 0.5, 1), "lens4.png", lensFlareSystem);
+        //var flare02 = new BABYLON.LensFlare(0.2, 1.0, new BABYLON.Color3(1, 0, 0), "lens4.png", lensFlareSystem);
+        //var flare03 = new BABYLON.LensFlare(0.4, 0.4, new BABYLON.Color3(1, 0.5, 1), "Flare.png", lensFlareSystem);
+        //var flare04 = new BABYLON.LensFlare(0.1, 0.6, new BABYLON.Color3(1, 1, 1), "lens5.png", lensFlareSystem);
+        //var flare05 = new BABYLON.LensFlare(0.3, 0.8, new BABYLON.Color3(1, 1, 1), "lens4.png", lensFlareSystem);
+        
+        // Skybox
+        var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
+        var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+        skyboxMaterial.backFaceCulling = false;
+        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("skybox/skybox", scene);
+        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+        skybox.material = skyboxMaterial;
+
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>

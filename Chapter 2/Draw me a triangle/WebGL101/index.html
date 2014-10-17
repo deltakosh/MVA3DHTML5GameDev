@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>WebGL 101</title>
+    <link href="index.css" rel="stylesheet" />
+    <script src="glMatrix-0.9.5.min.js"></script>
+
+    <!--Shaders-->
+    <script id="shader-vs" type="x-shader/x-vertex">
+        attribute vec3 position;
+
+        uniform mat4 uMVMatrix;
+        uniform mat4 uPMatrix;
+
+        void main(void) {
+            gl_Position = uPMatrix * uMVMatrix * vec4(position, 1.0);
+        }
+    </script>
+
+    <script id="shader-fs" type="x-shader/x-fragment">
+        precision mediump float;
+
+        void main(void) {
+            gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        }
+    </script>
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script src="index.js"></script>
+</body>
+</html>

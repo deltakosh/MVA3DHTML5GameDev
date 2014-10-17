@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+    <!-- Babylon.js -->
+    <script src="http://www.babylonjs.com/hand.minified-1.2.js"></script>
+    <script src="http://www.babylonjs.com/babylon.js"></script>
+    <style>
+        html, body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, false);
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+
+        // Scene, light and camera
+        var scene = new BABYLON.Scene(engine);
+        var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+        var camera = new BABYLON.ArcRotateCamera("Camera", 0, Math.PI / 2, 100, new BABYLON.Vector3(0, 0, 0), scene);
+        camera.attachControl(canvas);
+
+        // Assets manager
+        var assetsManager = new BABYLON.AssetsManager(scene);
+
+        var meshTask = assetsManager.addMeshTask("skull task", "", "skull/", "skull.babylon");
+
+        // You can handle success and error on a per-task basis (onSuccess, onError)
+        meshTask.onSuccess = function (task) {
+            task.loadedMeshes[0].position = new BABYLON.Vector3(0, 0, 0);
+        }
+
+        // But you can also do it on the assets manager itself (onTaskSuccess, onTaskError)
+        assetsManager.onTaskError = function (task) {
+            console.log("error while loading " + task.name);
+        }
+
+        // Text file and binary file can also be loaded in the same way
+        var textTask = assetsManager.addTextFileTask("text task", "msg.txt");
+        textTask.onSuccess = function (task) {
+            console.log(task.text);
+        }
+
+        var binaryTask = assetsManager.addBinaryFileTask("binary task", "grass.jpg");
+        binaryTask.onSuccess = function (task) {
+            // Do something with task.data
+        }
+
+        assetsManager.onFinish = function (tasks) {
+            engine.runRenderLoop(function () {
+                scene.render();
+            });
+        };
+
+
+        // Can now change loading background color:
+        engine.loadingUIBackgroundColor = "Purple";
+
+        // Just call load to initiate the loading sequence
+        assetsManager.load();
+    </script>
+</body>
+</html>

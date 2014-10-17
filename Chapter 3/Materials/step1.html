@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>Babylon.js sample code</title>
+        <!-- Babylon.js -->
+        <script src="http://www.babylonjs.com/hand.minified-1.2.js"></script>
+        <script src="http://www.babylonjs.com/babylon.js"></script>
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+    </head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+
+        var scene = new BABYLON.Scene(engine);
+
+        var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+
+        camera.setTarget(new BABYLON.Vector3.Zero());
+
+        camera.attachControl(canvas, false);
+
+        var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+
+        var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+
+        sphere.position.y = 1;
+
+        var ground = BABYLON.Mesh.CreateGround("ground1", 100, 100, 2, scene);
+
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        // Materials
+        var mat = new BABYLON.StandardMaterial("default", scene);
+
+        mat.diffuseColor = BABYLON.Color3.Red();
+
+        sphere.material = mat;
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+    <!-- Babylon.js -->
+    <script src="http://www.babylonjs.com/hand.minified-1.2.js"></script>
+    <script src="http://www.babylonjs.com/babylon.js"></script>
+    <style>
+        html, body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, false);
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+
+        var scene = new BABYLON.Scene(engine);
+
+        // setup environment
+        var light0 = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 10, 20), scene);
+        var freeCamera = new BABYLON.FreeCamera("FreeCamera", new BABYLON.Vector3(0, 0, -30), scene);
+
+        freeCamera.attachControl(canvas);
+
+        // Impact impostor
+        var impact = BABYLON.Mesh.CreatePlane("impact", 1, scene);
+        impact.material = new BABYLON.StandardMaterial("impactMat", scene);
+        impact.material.diffuseColor = BABYLON.Color3.Red();
+        impact.position = new BABYLON.Vector3(0, 0, -0.1);
+
+        // Add a blocking sphere
+        //var sphere = BABYLON.Mesh.CreateSphere("sphere", 16, 1, scene);
+
+        //Wall
+        var wall = BABYLON.Mesh.CreatePlane("wall", 20.0, scene);
+        wall.material = new BABYLON.StandardMaterial("wallMat", scene);
+        wall.material.emissiveColor = new BABYLON.Color3(0.5, 1, 0.5);
+
+ 
+        scene.registerBeforeRender(function() {
+            var pickResult = scene.pick(scene.pointerX, scene.pointerY, function(mesh) {
+                return (mesh.name === "wall");
+            });
+
+            if (pickResult.hit) {
+                impact.position.x = pickResult.pickedPoint.x;
+                impact.position.y = pickResult.pickedPoint.y;
+            }
+        });
+
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+c:\users\davrous\documents\visual studio 2013\Projects\005_RasterizationAndZBuffer\005_RasterizationAndZBuffer\bin\005_RasterizationAndZBuffer.dll.config
+c:\users\davrous\documents\visual studio 2013\Projects\005_RasterizationAndZBuffer\005_RasterizationAndZBuffer\bin\005_RasterizationAndZBuffer.dll
+c:\users\davrous\documents\visual studio 2013\Projects\005_RasterizationAndZBuffer\005_RasterizationAndZBuffer\bin\005_RasterizationAndZBuffer.pdb
+c:\users\davrous\documents\visual studio 2013\Projects\005_RasterizationAndZBuffer\005_RasterizationAndZBuffer\obj\Debug\005_RasterizationAndZBuffer.csprojResolveAssemblyReference.cache
+c:\users\davrous\documents\visual studio 2013\Projects\005_RasterizationAndZBuffer\005_RasterizationAndZBuffer\obj\Debug\005_RasterizationAndZBuffer.dll
+c:\users\davrous\documents\visual studio 2013\Projects\005_RasterizationAndZBuffer\005_RasterizationAndZBuffer\obj\Debug\005_RasterizationAndZBuffer.pdb

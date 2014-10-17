@@ -1,0 +1,10 @@
+Installation de l'exportateur
+Creation d'une free camera
+Creation d'un plan
+Ajout d'un materiau et d'une lumiere
+Ajout d'une teapot
+texture sur la teapot et le sol
+Collisions
+Animations
+Ombres
+Demo de v8

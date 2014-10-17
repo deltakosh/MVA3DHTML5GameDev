@@ -1,0 +1,12 @@
+c:\users\davrous\documents\visual studio 2013\Projects\004_Rasterization\004_Rasterization\bin\004_Rasterization.dll.config
+c:\users\davrous\documents\visual studio 2013\Projects\004_Rasterization\004_Rasterization\bin\004_Rasterization.dll
+c:\users\davrous\documents\visual studio 2013\Projects\004_Rasterization\004_Rasterization\bin\004_Rasterization.pdb
+c:\users\davrous\documents\visual studio 2013\Projects\004_Rasterization\004_Rasterization\obj\Debug\004_Rasterization.csprojResolveAssemblyReference.cache
+c:\users\davrous\documents\visual studio 2013\Projects\004_Rasterization\004_Rasterization\obj\Debug\004_Rasterization.dll
+c:\users\davrous\documents\visual studio 2013\Projects\004_Rasterization\004_Rasterization\obj\Debug\004_Rasterization.pdb
+C:\Users\davrous\Desktop\MVA Babylon.js\004. Rasterization without Z-Buffer\004_Rasterization\bin\004_Rasterization.dll.config
+C:\Users\davrous\Desktop\MVA Babylon.js\004. Rasterization without Z-Buffer\004_Rasterization\bin\004_Rasterization.dll
+C:\Users\davrous\Desktop\MVA Babylon.js\004. Rasterization without Z-Buffer\004_Rasterization\bin\004_Rasterization.pdb
+C:\Users\davrous\Desktop\MVA Babylon.js\004. Rasterization without Z-Buffer\004_Rasterization\obj\Debug\004_Rasterization.csprojResolveAssemblyReference.cache
+C:\Users\davrous\Desktop\MVA Babylon.js\004. Rasterization without Z-Buffer\004_Rasterization\obj\Debug\004_Rasterization.dll
+C:\Users\davrous\Desktop\MVA Babylon.js\004. Rasterization without Z-Buffer\004_Rasterization\obj\Debug\004_Rasterization.pdb

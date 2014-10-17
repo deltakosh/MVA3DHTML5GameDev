@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+    <!-- Babylon.js -->
+    <script src="http://www.babylonjs.com/hand.minified-1.2.js"></script>
+    <script src="http://www.babylonjs.com/babylon.js"></script>
+    <style>
+        html, body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+    <script type="application/vertexShader" id="vertexShaderCode">
+        precision mediump float;
+
+        // Attributes
+        attribute vec3 position;
+        attribute vec2 uv;
+
+        // Uniforms
+        uniform mat4 worldViewProjection;
+
+        // Normal
+        varying vec2 vUV;
+
+        void main(void) {
+                gl_Position = worldViewProjection * vec4(position, 1.0);
+
+                vUV = uv;
+        }
+    
+    </script>
+
+    <script type="application/fragmentShader" id="fragmentShaderCode">
+        precision mediump float;
+
+        varying vec2 vUV;
+
+        uniform sampler2D textureSampler;
+
+        void main(void) {
+                 gl_FragColor = texture2D(textureSampler, vUV);
+        }
+    
+    </script>
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, false);
+        var scene = new BABYLON.Scene(engine);
+        var camera = new BABYLON.ArcRotateCamera("Camera", 0, Math.PI / 2, 10, BABYLON.Vector3.Zero(), scene);
+
+        camera.attachControl(canvas);
+
+        // Creating sphere
+        var sphere = BABYLON.Mesh.CreateSphere("Sphere", 16, 5, scene);
+
+        var amigaMaterial = new BABYLON.ShaderMaterial("amiga", scene, {
+            vertexElement: "vertexShaderCode",
+            fragmentElement: "fragmentShaderCode",
+        },
+        {
+            attributes: ["position", "uv"],
+            uniforms: ["worldViewProjection"]
+        });
+        amigaMaterial.setTexture("textureSampler", new BABYLON.Texture("amiga.jpg", scene));
+
+        sphere.material = amigaMaterial;
+
+        engine.runRenderLoop(function () {
+            sphere.rotation.y += 0.05;
+            scene.render();
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>

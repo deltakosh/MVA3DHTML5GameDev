@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+    <!-- Babylon.js -->
+    <script src="http://www.babylonjs.com/hand.minified-1.2.js"></script>
+    <script src="http://www.babylonjs.com/babylon.js"></script>
+    <style>
+        html, body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+
+        var scene = new BABYLON.Scene(engine);
+
+        //Adding a light
+        var light = new BABYLON.PointLight("Omni", new BABYLON.Vector3(20, 20, 100), scene);
+
+        //Adding an Arc Rotate Camera
+        var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0.8, 100, new BABYLON.Vector3.Zero(), scene);
+        camera.attachControl(canvas, false);
+
+        // Show loading screen
+        engine.displayLoadingUI();
+
+        // Keep the loading screen at least 3s just because it's beautiful
+        setTimeout(function () {
+            // The first parameter can be used to specify which mesh to import. Here we import all meshes
+            BABYLON.SceneLoader.ImportMesh("test", "skull/", "skull.babylon", scene, function (newMeshes) {
+                // Set the target of the camera to the first imported mesh
+                camera.target = newMeshes[0];
+                engine.hideLoadingUI();
+            });
+        }, 3000);
+
+        // Move the light with the camera
+        scene.registerBeforeRender(function () {
+            light.position = camera.position;
+        });
+
+        // Render
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>
